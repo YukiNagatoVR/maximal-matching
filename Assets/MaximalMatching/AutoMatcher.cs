@@ -286,7 +286,7 @@ public class AutoMatcher : UdonSharpBehaviour
                 
                 if (lightningEnabled = false)
                 {
-                    if (var nextVariant = 1)
+                    if (gameVariant = 1)
                     {   
                     var nextVariant = 2;    
                     }
