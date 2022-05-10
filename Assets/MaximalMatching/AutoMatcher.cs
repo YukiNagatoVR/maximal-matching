@@ -20,6 +20,7 @@ public class AutoMatcher : UdonSharpBehaviour
     public UnityEngine.UI.Text MasterIndicator;
 
     public UnityEngine.UI.Toggle VariantToggle;
+    public UnityEngine.UI.Toggle LightningToggle;
 
     public MatchingTracker MatchingTracker;
     public OccupantTracker LobbyZone;
@@ -28,6 +29,8 @@ public class AutoMatcher : UdonSharpBehaviour
 
     [UdonSynced]
     public bool variantsEnabled = false;
+    [UdonSynced]
+    public bool lightningEnabled = false;
 
     // if enabled, variants replace every nth regular round.
     private const int variantFrequency = 6;
@@ -231,6 +234,11 @@ public class AutoMatcher : UdonSharpBehaviour
                 variantsEnabled = VariantToggle.isOn;
                 RequestSerialization();
             }
+            if (lightningEnabled != LightningToggle.isOn)
+            {
+                lightningEnabled = LightningToggle.isOn;
+                RequestSerialization();
+            }
         }
         else
         {
@@ -275,8 +283,17 @@ public class AutoMatcher : UdonSharpBehaviour
                 // 13-17/6 = 2 % 3 + 1 = 3 recess
                 // 19-23/6 = 3 % 3 + 1 = 1 lightning
                 var nextVariant = ((roundEpoch / variantFrequency) % 3) + 1;
+                
+                if (lightningEnabled = false)
+                {
+                    if (var nextVariant = 1)
+                    {   
+                    var nextVariant = 2;    
+                    }
+                }
+                
                 var variantName = nextVariant == 1 ? "Lightning Matching" : nextVariant == 2 ? "Group Matching" : "Recess";
-
+                
                 text =
                     $"Next matching in {minutes:00}:{seconds % 60:00}\n" +
                     $"({variantName} " + (roundsTilVariant > 1 ? $"in {roundsTilVariant} rounds" : "next round") + ")";
