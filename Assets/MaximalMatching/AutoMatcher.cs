@@ -20,6 +20,7 @@ public class AutoMatcher : UdonSharpBehaviour
     public UnityEngine.UI.Text MasterIndicator;
 
     public UnityEngine.UI.Toggle VariantToggle;
+    public UnityEngine.UI.Toggle LightningToggle;
 
     public MatchingTracker MatchingTracker;
     public OccupantTracker LobbyZone;
@@ -28,6 +29,9 @@ public class AutoMatcher : UdonSharpBehaviour
 
     [UdonSynced]
     public bool variantsEnabled = false;
+    
+    [UdonSynced]
+    public bool lightningEnabled = false;
 
     // if enabled, variants replace every nth regular round.
     private const int variantFrequency = 6;
@@ -229,6 +233,11 @@ public class AutoMatcher : UdonSharpBehaviour
             if (variantsEnabled != VariantToggle.isOn)
             {
                 variantsEnabled = VariantToggle.isOn;
+                RequestSerialization();
+            }
+            if (lightningEnabled != LightningToggle.isOn)
+            {
+                lightningEnabled = LightningToggle.isOn;
                 RequestSerialization();
             }
         }
@@ -585,6 +594,15 @@ public class AutoMatcher : UdonSharpBehaviour
             // 24/6 + 2 % 3 = 0 + 1 = 1 lightning
             gameVariant = 1 + ((roundEpoch / variantFrequency + 2) % 3);
             Log($"doing variant game {gameVariant} for roundEpoch {roundEpoch}");
+            
+            if (lightningEnabled = false)
+            {
+                if (gameVariant = 1) 
+                {
+                gameVariant = 2; 
+                }
+            }
+            
             switch (gameVariant)
             {
                 case LIGHTNING: 
