@@ -290,6 +290,10 @@ public class AutoMatcher : UdonSharpBehaviour
                     {   
                     var nextVariant = 2;    
                     }
+                    else
+                    {
+                    var nextVariant = ((roundEpoch / variantFrequency) % 3) + 1;
+                    }
                 }
                 else
                 {
