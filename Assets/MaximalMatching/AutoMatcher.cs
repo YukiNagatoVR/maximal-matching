@@ -289,20 +289,27 @@ public class AutoMatcher : UdonSharpBehaviour
                 {
                     if (gameVariant == 1)
                     {   
-                    var variantName = nextVariant == 1 ? "Group Matching" : nextVariant == 2 ? "Group Matching" : "Recess";   
+                    var variantName = nextVariant == 1 ? "Group Matching" : nextVariant == 2 ? "Group Matching" : "Recess";
+                    text =
+                    $"Next matching in {minutes:00}:{seconds % 60:00}\n" +
+                    $"({variantName} " + (roundsTilVariant > 1 ? $"in {roundsTilVariant} rounds" : "next round") + ")";
                     }
                     else
                     {
                     var variantName = nextVariant == 1 ? "Lightning Matching" : nextVariant == 2 ? "Group Matching" : "Recess";
+                    text =
+                    $"Next matching in {minutes:00}:{seconds % 60:00}\n" +
+                    $"({variantName} " + (roundsTilVariant > 1 ? $"in {roundsTilVariant} rounds" : "next round") + ")";
                     }
                 }
                 else
                 {
                 var variantName = nextVariant == 1 ? "Lightning Matching" : nextVariant == 2 ? "Group Matching" : "Recess";
-                }
                 text =
                     $"Next matching in {minutes:00}:{seconds % 60:00}\n" +
                     $"({variantName} " + (roundsTilVariant > 1 ? $"in {roundsTilVariant} rounds" : "next round") + ")";
+                }
+                
             }
             else
             {
