@@ -282,7 +282,7 @@ public class AutoMatcher : UdonSharpBehaviour
                 // 6-11/6 = 1 % 3 + 1 = 2 group
                 // 13-17/6 = 2 % 3 + 1 = 3 recess
                 // 19-23/6 = 3 % 3 + 1 = 1 lightning
-                var nextVariant = ((roundEpoch / variantFrequency) % 3) + 1;
+                
                 
                 if (lightningEnabled = false)
                 {
@@ -290,6 +290,10 @@ public class AutoMatcher : UdonSharpBehaviour
                     {   
                     var nextVariant = 2;    
                     }
+                }
+                else
+                {
+                    var nextVariant = ((roundEpoch / variantFrequency) % 3) + 1;
                 }
                 
                 var variantName = nextVariant == 1 ? "Lightning Matching" : nextVariant == 2 ? "Group Matching" : "Recess";
