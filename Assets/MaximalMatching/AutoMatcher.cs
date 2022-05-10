@@ -255,6 +255,7 @@ public class AutoMatcher : UdonSharpBehaviour
                 BreakDurationText.text = $"{Mathf.RoundToInt(BreakDuration)} seconds";
             }
             VariantToggle.isOn = variantsEnabled;
+            LightningToggle.isOn = lightningEnabled;
         }
         MasterIndicator.text = $"(Only master {Networking.GetOwner(gameObject).displayName} can change)";
     }
@@ -282,26 +283,23 @@ public class AutoMatcher : UdonSharpBehaviour
                 // 6-11/6 = 1 % 3 + 1 = 2 group
                 // 13-17/6 = 2 % 3 + 1 = 3 recess
                 // 19-23/6 = 3 % 3 + 1 = 1 lightning
-                
+                var nextVariant = ((roundEpoch / variantFrequency) % 3) + 1;
                 
                 if (lightningEnabled = false)
                 {
                     if (gameVariant == 1)
                     {   
-                    var nextVariant = 2;    
+                    var variantName = nextVariant == 1 ? "Group Matching" : nextVariant == 2 ? "Group Matching" : "Recess";   
                     }
                     else
                     {
-                    var nextVariant = ((roundEpoch / variantFrequency) % 3) + 1;
+                    var variantName = nextVariant == 1 ? "Lightning Matching" : nextVariant == 2 ? "Group Matching" : "Recess";
                     }
                 }
                 else
                 {
-                    var nextVariant = ((roundEpoch / variantFrequency) % 3) + 1;
-                }
-                
                 var variantName = nextVariant == 1 ? "Lightning Matching" : nextVariant == 2 ? "Group Matching" : "Recess";
-                
+                }
                 text =
                     $"Next matching in {minutes:00}:{seconds % 60:00}\n" +
                     $"({variantName} " + (roundsTilVariant > 1 ? $"in {roundsTilVariant} rounds" : "next round") + ")";
@@ -610,6 +608,15 @@ public class AutoMatcher : UdonSharpBehaviour
             // 24/6 + 2 % 3 = 0 + 1 = 1 lightning
             gameVariant = 1 + ((roundEpoch / variantFrequency + 2) % 3);
             Log($"doing variant game {gameVariant} for roundEpoch {roundEpoch}");
+            
+            if (lightningEnabled = false)
+            {
+                if(gameVariant = 1)
+                {
+                gameVariant = 2;
+                }
+            }
+            
             switch (gameVariant)
             {
                 case LIGHTNING: 
