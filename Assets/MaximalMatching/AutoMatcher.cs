@@ -611,7 +611,7 @@ public class AutoMatcher : UdonSharpBehaviour
             
             if (lightningEnabled = false)
             {
-                if(gameVariant = 1)
+                if(gameVariant == 1)
                 {
                 gameVariant = 2;
                 }
